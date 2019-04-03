@@ -1,7 +1,11 @@
+import itertools
 import numpy as np
 
+
 def isprime(number):
-    if number%2==0 or number<2:
+    if number==2:
+        return True
+    elif number%2==0 or number<2:
         return False
     else:
         for i in range(3,int(np.sqrt(number))+1,2):
