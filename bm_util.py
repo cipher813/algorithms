@@ -1,6 +1,15 @@
 import itertools
 import numpy as np
 
+def generator(item_list):
+    """Singly iterate through items in a list; helpful to iterate 
+    through large datasets that can't fit into memory.
+    
+    generate = generator(item_list)
+    next(generate)
+    """
+    for item in item_list:
+        yield item
 
 def isprime(number):
     if number==2:
@@ -84,6 +93,23 @@ def fibonacci(idx):
 
 assert fibonacci(6)==[1, 2, 3, 5, 8, 13]
 
+def multiply_binary(a,b):
+    """Multiply two binary numbers
+    Dasgupta Fig 2.1"""
+    n = max(len(a)-2,len(b)-2)
+    if n==1:
+        return np.prod(a,b)
+    
+    a, b = a[2:], b[2:]
+    al, ar = int("0b" + a[:len(a)//2],2), int("0b" + a[len(a)//2:],2)
+    bl, br = int("0b" + b[:len(b)//2],2), int("0b" + b[len(b)//2:],2)
+    p1 = al*bl
+    p2 = ar*br
+    p3 = (al+ar)*(bl+br)
+    return bin(int(p1*2**n+(p3-p1-p2)*2**(n/2)+p2))
+
+assert multiply_binary('0b10110110','0b10110110')=='0b1000000101100100'
+
 def mergesort(arr):
     
     def merge(arr):
@@ -131,6 +157,30 @@ def mergesort(arr):
     
 assert mergesort([9,1,8,2,12,7])==[1, 2, 7, 8, 9, 12]
 
+def quicksort(arr):
+    
+    def partition(arr, low, high):
+        i = low - 1
+        pivot = arr[high]
+
+        for j in range(low, high):
+            if arr[j]<=pivot:
+                i+=1
+                arr[i],arr[j]=arr[j],arr[i]
+
+        arr[i+1],arr[high]=arr[high],arr[i+1]
+        return i+1
+
+    def sort(arr, low, high):
+        if low < high:
+            pi = partition(arr, low, high)
+            sort(arr, low, pi - 1)
+            sort(arr, pi+1, high)
+            
+    print(f"Unsorted:\t{arr}")
+    sort(arr, 0, len(arr)-1)
+    print(f"Sorted:\t{arr}")
+
 def binary_search(arr,num):
     """Binary search and array to find the index of a value.
     
@@ -150,20 +200,3 @@ def binary_search(arr,num):
         
 assert binary_search([7,8,9,10],8)==True
 assert binary_search([7,8,9,10],11)==False
-
-def multiply_binary(a,b):
-    """Multiply two binary numbers
-    Dasgupta Fig 2.1"""
-    n = max(len(a)-2,len(b)-2)
-    if n==1:
-        return np.prod(a,b)
-    
-    a, b = a[2:], b[2:]
-    al, ar = int("0b" + a[:len(a)//2],2), int("0b" + a[len(a)//2:],2)
-    bl, br = int("0b" + b[:len(b)//2],2), int("0b" + b[len(b)//2:],2)
-    p1 = al*bl
-    p2 = ar*br
-    p3 = (al+ar)*(bl+br)
-    return bin(int(p1*2**n+(p3-p1-p2)*2**(n/2)+p2))
-
-assert multiply_binary('0b10110110','0b10110110')=='0b1000000101100100'
