@@ -1,5 +1,20 @@
+import re
+import requests
 import itertools
 import numpy as np
+import pandas as pd
+from bs4 import BeautifulSoup
+
+def parse_table_from_url(url):
+    """Parse table from url."""
+    response=requests.get(url)
+    page=response.text
+    soup=BeautifulSoup(page,"lxml")
+    tables=soup.find_all("table")
+    rows=[row for row in tables[0].find_all('tr')]
+    df = pd.read_html(tables[0].prettify(),index_col=[0])[0]
+    df.columns = [re.sub(r'[\W+]','',str(x)) for x in df.columns]
+    return df
 
 def generator(item_list):
     """Singly iterate through items in a list; helpful to iterate 
