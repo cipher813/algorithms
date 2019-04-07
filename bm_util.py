@@ -1,9 +1,18 @@
+import os
 import re
 import requests
 import itertools
 import numpy as np
 import pandas as pd
 from bs4 import BeautifulSoup
+
+def download_url_to_filepath(filepath, url):
+    """Create path and download data from url."""
+    if not os.path.exists(filepath):
+        urllib.request.urlretrieve(url, filepath) 
+    else:
+        print(f"{filepath} already exists.")
+    return filepath
 
 def parse_table_from_url(url):
     """Parse table from url."""
