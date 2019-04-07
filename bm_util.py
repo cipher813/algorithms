@@ -1,5 +1,6 @@
 import os
 import re
+import urllib
 import requests
 import itertools
 import numpy as np
@@ -8,11 +9,13 @@ from bs4 import BeautifulSoup
 
 def download_url_to_filepath(filepath, url):
     """Create path and download data from url."""
-    if not os.path.exists(filepath):
-        urllib.request.urlretrieve(url, filepath) 
-    else:
-        print(f"{filepath} already exists.")
-    return filepath
+    fd, fn = re.findall(r"^(.+\/)([^\/]+)$",filepath)[0]
+    fp = fd + fn
+    if not os.path.exists(fd):
+        os.makedirs(fd)
+    if not os.path.exists(fp):
+        urllib.request.urlretrieve(url, fp) 
+    return fp 
 
 def parse_table_from_url(url):
     """Parse table from url."""
