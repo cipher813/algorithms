@@ -1,6 +1,7 @@
 import os
 import re
 import urllib
+import zipfile
 import requests
 import itertools
 import numpy as np
@@ -16,6 +17,11 @@ def download_url_to_filepath(filepath, url):
     if not os.path.exists(fp):
         urllib.request.urlretrieve(url, fp) 
     return fp 
+
+def unzip_file(input_filepath,output_dir):
+    z = zipfile.ZipFile(input_filepath,'r')
+    z.extractall(output_dir)
+    z.close()
 
 def parse_table_from_url(url):
     """Parse table from url."""
