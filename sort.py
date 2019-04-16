@@ -126,12 +126,12 @@ def quicksort_printed(arr):
 
     def sort(arr, low, high):
         if low < high:
-            print(f"{low}<{high}")
-            print(f"pi=partition at {arr},{low},{high}")
+            print(f"Low {low} is less than High {high}")
+            print(f"Partition at Array {arr}, Low {low}, High {high}")
             pi = partition(arr, low, high)
-            print(f"Applying sort at {arr},{low},{pi - 1}")
+            print(f"Applying sort at Array {arr}, Low {low}, High {pi - 1}")
             sort(arr, low, pi - 1)
-            print(f"Applying sort at {arr},{pi + 1},{high}")
+            print(f"Applying sort at Array {arr}, Low {pi + 1}, High {high}")
             sort(arr, pi+1, high)
             
     print(f"Unsorted:\t{arr}")
