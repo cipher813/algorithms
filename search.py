@@ -1,5 +1,30 @@
 from collections import defaultdict
 
+def binary_search(array, term):
+    """Binary search implementation
+    
+    Args
+    :array: array to search
+    :term: value to search for in array
+    
+    Returns: True if value exists in array, else False
+    """
+    mid = len(array)//2
+    if len(array)==1 and array[mid]!=term:
+        return False
+    elif array[mid]==term:
+        return True
+    elif array[mid]<term:
+        return binary_search(array[mid:],term)
+    else:
+        return binary_search(array[:mid],term)
+
+A = [x**2 for x in range(10)]
+assert binary_search(A,9)==True
+assert binary_search(A,10)==False
+assert binary_search(A,36)==True
+assert binary_search(A,37)==False
+
 class Graph:
     """Generic graph class"""
     def __init__(self):
