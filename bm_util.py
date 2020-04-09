@@ -117,13 +117,32 @@ def fibonacci(idx):
     a, b = 0, 1
     fib_list = []
     
-    for i in range(idx):
+    for i in range(idx-1):
         a, b = b, a + b
         fib_list.append(b)
         
-    return fib_list
+    return fib_list[-1]
 
-assert fibonacci(6)==[1, 2, 3, 5, 8, 13]
+def fibonacci_rec(idx):
+    if idx==0:
+        return 0
+    elif idx==1:
+        return 1
+    else:
+        return fibonacci_rec(idx-2)+fibonacci_rec(idx-1)
+    
+def fibonacci_dict(idx):
+    a, b = 0, 1
+    d = {}
+    
+    d[0] = 0
+    d[1] = 1
+    for i in range(2,idx+2):
+        d[i] = d[i-1] + d[i-2]
+        
+    return d[idx]
+
+assert fibonacci(8) == figonacci_rec(8) == fibonacci_dict(8)==21
 
 def multiply_binary(a,b):
     """Multiply two binary numbers
