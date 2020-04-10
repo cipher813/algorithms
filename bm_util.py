@@ -130,6 +130,12 @@ def fibonacci_rec(idx):
         return 1
     else:
         return fibonacci_rec(idx-2)+fibonacci_rec(idx-1)
+
+def fibonacci_arr(idx):
+    a = [0,1]
+    for i in range(2,idx+1):
+        a.append(a[i-1]+a[i-2])
+    return a[idx]
     
 def fibonacci_dict(idx):
     a, b = 0, 1
@@ -142,7 +148,7 @@ def fibonacci_dict(idx):
         
     return d[idx]
 
-assert fibonacci(8) == figonacci_rec(8) == fibonacci_dict(8)==21
+assert fibonacci(8) == figonacci_rec(8) == fibonacci_arr(8) == fibonacci_dict(8)==21
 
 def multiply_binary(a,b):
     """Multiply two binary numbers
